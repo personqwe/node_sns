@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { renderJoin, renderMain, renderProfile } = require('../controllers/page');
+const { isLoggendIn, isNotLoggenIn } = require('../middlewares');
 
 router.use((req, res, next) => {
     res.locals.user = null; // locals는 따로 저장할 데이터를 담아둠(공통적으로 사용할 데이터)
