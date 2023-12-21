@@ -47,9 +47,10 @@ app.use(session({
     },
 }));
 
+// 세션쿠키랑 유저 아이디는 연결되어있다.
 app.use(passport.initialize()); // passport는 session 아래에 작성해야함 req.user, req.login, req.isAuthenticate, req.logout 여기서 생성
 app.use(passport.session()); // user.id를 저장한게 session으로 저장. Connect.id로 session쿠키가 브라우저로 전송
-
+// 브라우저 connect.sid=123456412348 - 쿠키가 서버로 옴 
 app.use('/', pageRouter);
 app.use('/auth', authRouter);
 

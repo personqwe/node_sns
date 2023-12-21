@@ -1,4 +1,4 @@
-exports.isLoggendIn = (req, res, next) => {
+exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) //패스포트 통해서 로그인 했나? 확인
     {
         next();
