@@ -12,6 +12,7 @@ dotenv.config(); // process.env
 // process.env.COOKIE_SECRET 있음
 const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
+const postRouter = require('./routes/post');
 const { sequelize } = require('./models');
 const passportConfig = require('./passport'); // passport설정
 
@@ -34,6 +35,7 @@ sequelize.sync({ force: false })
 
 app.use(morgan('dev')); // 배포할땐 combined
 app.use(express.static(path.join(__dirname, 'public'))); //public폴더만 프론트에서 허용 브라우저에서는 원래 접근 X
+app.use('/img', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json()); // req.body를 ajax json 요청으로부터
 app.use(express.urlencoded({ extended: false })); // 폼 요청 req.body 폼으로부터
 app.use(cookieParser(process.env.COOKIE_SECRET)); // 쿠키 전송 처리
@@ -53,6 +55,7 @@ app.use(passport.session()); // user.id를 저장한게 session으로 저장. Co
 // 브라우저 connect.sid=123456412348 - 쿠키가 서버로 옴 
 app.use('/', pageRouter);
 app.use('/auth', authRouter);
+app.use('/post', postRouter);
 
 app.use((req, res, next) => {
   const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
