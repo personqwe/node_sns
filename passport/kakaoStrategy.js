@@ -1,8 +1,6 @@
 const passport = require('passport');
 const {Strategy: KakaoStrategy} = require('passport-kakao');
 const User = require('../models/user');
-const { renderProfile } = require('../controllers/page');
-
 
 module.exports = () => {
     passport.use(new KakaoStrategy({

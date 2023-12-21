@@ -12,8 +12,8 @@ router.use((req, res, next) => {
     next();
 })
 
-router.get('/profile', renderProfile);
-router.get('/join', renderJoin);
+router.get('/profile', isLoggedIn, renderProfile);
+router.get('/join', isNotLoggedIn, renderJoin);
 router.get('/', renderMain); //라우터의 마지막 미들웨어는 컨트롤러
 
 module.exports = router;
