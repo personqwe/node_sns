@@ -15,5 +15,6 @@ router.use((req, res, next) => {
 router.get('/profile', isLoggedIn, renderProfile);
 router.get('/join', isNotLoggedIn, renderJoin);
 router.get('/', renderMain); //라우터의 마지막 미들웨어는 컨트롤러
+router.get('/hashtag', renderHashtag); // hashtag?hashtag = 고양이
 
 module.exports = router;
