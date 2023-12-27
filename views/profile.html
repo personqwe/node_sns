@@ -5,11 +5,13 @@
     <div class="followings half">
       <h2>팔로잉 목록</h2>
       {% if user.Followings %}
-        {% for following in user.Followings %}
-          <div>{{following.nick}}</div>
-        {% endfor %}
+      {% for following in user.Followings %}
+      <div>
+          <div style="display: inline-block;">{{ following.nick }}</div>
+          <button class="twit-follow" data-user-id="{{ following.id }}">팔로우취소</button>
+      </div>
+      {% endfor %}
       {% endif %}
-    </div>
     <div class="followers half">
       <h2>팔로워 목록</h2>
       {% if user.Followers %}
@@ -19,4 +21,21 @@
       {% endif %}
     </div>
   </div>
+  
+  <script>
+    document.querySelectorAll('.twit-follow').forEach(function(tag) {
+        tag.addEventListener('click', function() {
+            const userId = tag.dataset.userId;
+            if (confirm(`팔로잉을 취소하시겠습니까?`)) {
+                axios.post(`/user/${userId}/unfollow`)
+                    .then(() => {
+                        location.reload();
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    });
+            }
+        });
+    });
+</script>
 {% endblock %}

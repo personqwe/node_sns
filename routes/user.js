@@ -4,5 +4,6 @@ const router = express.Router();
 const { follow } = require('../controllers/user');
 
 router.post('/:id/follow', isLoggedIn, follow);
+router.post('/:id/unfollow', isLoggedIn, unfollow);
 
 module.exports = router;
