@@ -21,7 +21,7 @@
       {% endif %}
     </div>
   </div>
-  
+
   <script>
     document.querySelectorAll('.twit-follow').forEach(function(tag) {
         tag.addEventListener('click', function() {
@@ -37,5 +37,16 @@
             }
         });
     });
+    function updateNickname() {
+        const newNickname = document.getElementById('newNickname').value;
+        const myId = document.querySelector('#my-id').value;
+        axios.post(`/user/${myId}/updatenick`, { newNickname })
+            .then(() => {
+                location.reload();
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
 </script>
 {% endblock %}
