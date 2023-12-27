@@ -11,6 +11,10 @@ module.exports = class Post extends Sequelize.Model {
         type: Sequelize.STRING(200),
         allowNull: true,
       },
+      likecount: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
     }, {
       sequelize,
       timestamps: true,
@@ -26,5 +30,6 @@ module.exports = class Post extends Sequelize.Model {
   static associate(db) {
     db.Post.belongsTo(db.User);
     db.Post.belongsToMany(db.Hashtag, { through: 'PostHashtag' });
+    db.Post.belongsToMany(db.User, { through: 'Like', as: 'LikedPosts' });
   }
 };
