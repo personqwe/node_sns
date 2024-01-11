@@ -4,5 +4,6 @@ const router = express.Router();
 const {like, unlike} = require('../controllers/like');
 
 router.post('/:postid/like', isLoggedIn, like);
+router.post('/:postid/unlike', isLoggedIn, unlike);
 
 module.exports = router;
