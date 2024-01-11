@@ -35,8 +35,13 @@
       {% endif %}
       <div class="twit-content">{{twit.content}}</div>
       <div class="twit-actions">
-        <button class="twit-like-btn" data-twit-id="{{twit.id}}">좋아요</button>
-        <span class="twit-like-count" id="like-count-{{twit.id}}">{{twit.likes.count}}</span>
+        <button class="twit-like-btn {% if twit.liked %}liked{% endif %}" data-twit-id="{{ twit.id }}">
+          {% if twit.liked %}
+            좋아요 취소
+          {% else %}
+            좋아요
+          {% endif %}
+        </button>
       </div>
       {% if twit.img %}
       <div class="twit-img"><img src="{{twit.img}}" alt="섬네일"></div>
@@ -85,16 +90,20 @@
     });
   });
   document.querySelectorAll('.twit-like-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      const twitId = btn.getAttribute('data-twit-id');
-      axios.post(`/like/${twitId}/like`)
-        .then(() => {
-          location.reload();
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    });
+  btn.addEventListener('click', function () {
+    const twitId = btn.getAttribute('data-twit-id');
+    const isLiked = btn.classList.contains('liked');
+
+    axios.post(`/like/${twitId}/${isLiked ? 'unlike' : 'like'}`)
+      .then((res) => {
+        btn.classList.toggle('liked');
+
+        btn.textContent = isLiked ? '좋아요' : '좋아요 취소';
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
+});
 </script>
 {% endblock %}
