@@ -9,7 +9,7 @@ exports.isLoggedIn = (req, res, next) => {
     }
 };
 
-exports.isNotLoggenIn = (req, res, next) => {
+exports.isNotLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) 
     {
         next();
